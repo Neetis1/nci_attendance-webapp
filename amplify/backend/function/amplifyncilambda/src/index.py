@@ -68,7 +68,7 @@ def uploadAttendance(event):
 
     decodedData = decodeEvent(event)
 
-    fileDecodedData = decodedData["attendanceFile"].decode('utf16')
+    fileDecodedData = decodedData["attendanceFile"].decode('utf8')
     meetingTitle = ''
     meetingId = ''
     meetingPeopleList = []

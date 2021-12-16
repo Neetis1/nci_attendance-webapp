@@ -11,7 +11,7 @@ import email
 import os
 from botocore.exceptions import ClientError
 
-sys.path.insert(0, '../layers/msteams/python/lib/python3.7/site-packages/')
+sys.path.insert(0, '../layers/msteams/python/lib/python3.8/site-packages/')
 
 from MSTeamsdataretrieval import TeamsDataRetrival
 
@@ -311,10 +311,7 @@ def decodeEvent(event):
     Args:
         event (dict) : Lambda dictionary of event parameters.
     """
-
-    encoded = base64.b64encode(bytes(event["body"], 'utf-8'))
-    # logger.info(encoded)
-    reponseBody = base64.b64decode(encoded)
+    reponseBody = base64.b64decode(event["body"])
     decodedFormData = {}
     
     try:
