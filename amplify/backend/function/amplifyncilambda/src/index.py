@@ -106,7 +106,7 @@ def uploadAttendance(event):
                         ( meeting_id varchar(255), organiser varchar(255), duration varchar(255))")
 
                     # Check for Meeting Id already exists
-                    cursor.execute('select count(distinct meeting_id) as count_meeting_id from ATTENDANCE where meeting_id="{0}"'.format(masterData[1]))
+                    cursor.execute('select count(distinct meeting_id) as count_meeting_id from ATTENDANCE_MASTER where meeting_id="{0}"'.format(masterData[1]))
                     
                     meetingExists = cursor.fetchone()
                     
@@ -121,9 +121,9 @@ def uploadAttendance(event):
                         
                         for meetingPeople in attendanceList:
                             logger.info("insert into ATTENDANCE (full_name, join_time, leave_time, duration, email, role, participant_id, meeting_title, meeting_id) values(\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\")".format(
-                                meetingPeople[0], meetingPeople[1], meetingPeople[2], meetingPeople[3], meetingPeople[4], meetingPeople[5], meetingPeople[6], meetingPeople[7], meetingPeople[8]))
+                                meetingPeople[0], meetingPeople[1], meetingPeople[2], meetingPeople[3], meetingPeople[4], meetingPeople[5], meetingPeople[8], meetingPeople[6], meetingPeople[7]))
                             cursor.execute("insert into ATTENDANCE (full_name, join_time, leave_time, duration, email, role, participant_id, meeting_title, meeting_id) values(\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\")".format(
-                                meetingPeople[0], meetingPeople[1], meetingPeople[2], meetingPeople[3], meetingPeople[4], meetingPeople[5], meetingPeople[6], meetingPeople[7], meetingPeople[8]))
+                                meetingPeople[0], meetingPeople[1], meetingPeople[2], meetingPeople[3], meetingPeople[4], meetingPeople[5], meetingPeople[8], meetingPeople[6], meetingPeople[7]))
                             conn.commit()
     
                     conn.commit
@@ -188,20 +188,20 @@ def retrieveDataModel(event):
 
         with conn.cursor() as cursor:
 
-            cursor.execute(("select count(a.meeting_id) as number_of_attendees, (20 - count(a.meeting_id)) as absentees,\
-                            STR_TO_DATE(a.join_time, '%m/%d/%Y') as meeting_date, \
+            cursor.execute("select count(a.meeting_id) as number_of_attendees, (60 - count(a.meeting_id)) as absentees,\
+                            STR_TO_DATE(a.join_time, '%m-%d-%Y') as meeting_date, \
                             b.duration, b.organiser, b.meeting_id, COALESCE(l.left_early,0) as left_early \
                             from nci_app.ATTENDANCE a join nci_app.ATTENDANCE_MASTER b on a.meeting_id = b.meeting_id \
-                            and lower(organiser) = lower(\"{0}\") left join \
+                            left join \
                             (select count(a.left_early) left_early, a.meeting_date, a.meeting_id from\
                             (select substring(a.duration,1,2),\
                             if(substring(a.duration,1,2) < b.duration/2 , TRUE, FALSE) as left_early,\
-                            STR_TO_DATE(a.join_time, '%m/%d/%Y') as meeting_date, a.meeting_id\
+                            STR_TO_DATE(a.join_time, '%m-%d-%Y') as meeting_date, a.meeting_id\
                             from nci_app.ATTENDANCE a join nci_app.ATTENDANCE_MASTER b where a.meeting_id = b.meeting_id) a \
                             where a.left_early > 0 group by meeting_date) l\
                             on a.meeting_id = l.meeting_id\
                             group by b.meeting_id\
-                            order by meeting_date").format(email))
+                            order by meeting_date")
 
         datamodelRecords = cursor.fetchall()
 

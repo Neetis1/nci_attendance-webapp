@@ -188,7 +188,7 @@ def retrieveDataModel(event):
 
         with conn.cursor() as cursor:
 
-            cursor.execute("select count(a.meeting_id) as number_of_attendees, (20 - count(a.meeting_id)) as absentees,\
+            cursor.execute("select count(a.meeting_id) as number_of_attendees, (60 - count(a.meeting_id)) as absentees,\
                             STR_TO_DATE(a.join_time, '%m-%d-%Y') as meeting_date, \
                             b.duration, b.organiser, b.meeting_id, COALESCE(l.left_early,0) as left_early \
                             from nci_app.ATTENDANCE a join nci_app.ATTENDANCE_MASTER b on a.meeting_id = b.meeting_id \

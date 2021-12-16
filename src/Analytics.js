@@ -43,7 +43,7 @@ export default class Analytics extends Component {
           this.setState({ error: response.data.error ? response.data.error : undefined});
           this.setState({ datamodelResponse: response.data.data ? response.data.data : response.data });
 
-          this.setState({ attendanceList : response.data.attendance});
+          this.setState({ attendanceList : response.attendance});
 
           for(var i in this.state.attendanceList) {
             console.log(i)
@@ -51,7 +51,7 @@ export default class Analytics extends Component {
             this.state.attendanceValue.push(this.state.attendanceList[i].value);
           }
 
-          this.setState({ absenteesList : response.data.absentees});
+          this.setState({ absenteesList : response.absentees});
 
           for(var i in this.state.absenteesList) {
             console.log(i)
@@ -59,7 +59,7 @@ export default class Analytics extends Component {
             this.state.absenteesValue.push(this.state.absenteesList[i].value);
           }
 
-          this.setState({ durationList : response.data.duration});
+          this.setState({ durationList : response.duration});
 
           for(var i in this.state.durationList) {
             console.log(i)
@@ -67,7 +67,7 @@ export default class Analytics extends Component {
             this.state.durationValue.push(this.state.durationList[i].value);
           }
 
-          this.setState({ leftEarlyList : response.data.leftEarly});
+          this.setState({ leftEarlyList : response.leftEarly});
 
           for(var i in this.state.leftEarlyList) {
             console.log(i)
