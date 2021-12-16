@@ -8,7 +8,7 @@ IFS='|'
 # npm install --save axios
 
 # yes "" | amplify delete
-# yes "" | amplify init
+yes "" | amplify init
 
 # Ref AWS Amplify-Cli Github Repo
 # https://github.com/aws-amplify/amplify-cli

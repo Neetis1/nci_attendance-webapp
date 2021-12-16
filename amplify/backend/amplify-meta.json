@@ -1,15 +1,15 @@
 {
   "providers": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-nciattendanceappnew-prod-02856-authRole",
-      "UnauthRoleArn": "arn:aws:iam::584725943952:role/amplify-nciattendanceappnew-prod-02856-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::584725943952:role/amplify-nciattendanceappnew-prod-02856-authRole",
+      "AuthRoleName": "amplify-nciattendancewebapp-dev-210045-authRole",
+      "UnauthRoleArn": "arn:aws:iam::380504251017:role/amplify-nciattendancewebapp-dev-210045-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::380504251017:role/amplify-nciattendancewebapp-dev-210045-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-nciattendanceappnew-prod-02856-deployment",
-      "UnauthRoleName": "amplify-nciattendanceappnew-prod-02856-unauthRole",
-      "StackName": "amplify-nciattendanceappnew-prod-02856",
-      "StackId": "arn:aws:cloudformation:us-east-1:584725943952:stack/amplify-nciattendanceappnew-prod-02856/29630520-5e07-11ec-9c9f-0a0666c2d4fb",
-      "AmplifyAppId": "d1q790fs2iheqt"
+      "DeploymentBucketName": "amplify-nciattendancewebapp-dev-210045-deployment",
+      "UnauthRoleName": "amplify-nciattendancewebapp-dev-210045-unauthRole",
+      "StackName": "amplify-nciattendancewebapp-dev-210045",
+      "StackId": "arn:aws:cloudformation:us-east-1:380504251017:stack/amplify-nciattendancewebapp-dev-210045/3ecfb780-5eb3-11ec-9bf8-0af7bc08aad9",
+      "AmplifyAppId": "d3ru15cg5dras0"
     }
   },
   "auth": {
@@ -41,20 +41,20 @@
     }
   },
   "function": {
-    "amplifylambdanci": {
+    "amplifyncilambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "api": {
-    "amplifyapinci": {
+    "amplifynciapi": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "amplifylambdanci",
+          "resourceName": "amplifyncilambda",
           "attributes": [
             "Name",
             "Arn"

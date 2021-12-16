@@ -30,7 +30,7 @@ custom:
 
   environment:
     S3Bucket:
-      dev: "nci-attendance-app"
+      dev: "nci-attendance-webapp"
     AccountId:
       dev: "584725943952"
     RdsCredentials:

@@ -12,8 +12,8 @@
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "Content": {
-          "S3Bucket": "nci-attendance-app",
-          "S3Key": "serverless/amplifylambda/dev/1639672313860-2021-12-16T16:31:53.860Z/CvPythonAppDependencies.zip"
+          "S3Bucket": "nci-attendance-webapp",
+          "S3Key": "serverless/amplifylambda/dev/1639688241989-2021-12-16T20:57:21.989Z/CvPythonAppDependencies.zip"
         },
         "LayerName": "CvPythonAppDependencies",
         "Description": "NCI Attendance App",
@@ -26,8 +26,8 @@
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "Content": {
-          "S3Bucket": "nci-attendance-app",
-          "S3Key": "serverless/amplifylambda/dev/1639617624791-2021-12-16T01:20:24.791Z/CvPymysqlAppDependencies.zip"
+          "S3Bucket": "nci-attendance-webapp",
+          "S3Key": "serverless/amplifylambda/dev/1639688241989-2021-12-16T20:57:21.989Z/CvPymysqlAppDependencies.zip"
         },
         "LayerName": "CvPymysqlAppDependencies",
         "Description": "NCI Attendance App",
@@ -40,8 +40,8 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "nci-attendance-app",
-          "S3Key": "serverless/amplifylambda/dev/1639672313860-2021-12-16T16:31:53.860Z/amplifylambda.zip"
+          "S3Bucket": "nci-attendance-webapp",
+          "S3Key": "serverless/amplifylambda/dev/1639688241989-2021-12-16T20:57:21.989Z/amplifylambda.zip"
         },
         "Handler": "amplifylambda.handler",
         "Runtime": "python3.8",
@@ -60,12 +60,12 @@
         ],
         "Environment": {
           "Variables": {
-            "S3_BUCKET_NAME": "nci-attendance-app",
-            "ACCOUNT_ID": "584725943952",
+            "S3_BUCKET_NAME": "nci-attendance-webapp",
+            "ACCOUNT_ID": "380504251017",
             "RDS_SECRETID": "mysql_rds_credentials"
           }
         },
-        "Role": "arn:aws:iam::584725943952:role/nci_attendance_lambda",
+        "Role": "arn:aws:iam::380504251017:role/nci_attendance_lambda",
         "Layers": [
           {
             "Ref": "CvPythonAppDependenciesLambdaLayer"
@@ -79,14 +79,14 @@
         "HandlerLogGroup"
       ]
     },
-    "HandlerLambdaVersionVVXp8BSakg6JRBUWHJ8m5KCJlOsa82RkAlsYRA64Kpc": {
+    "HandlerLambdaVersion5onGk3gePxXDPNlE3kD271deAD9hCDRZP7hi8g5CM": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HandlerLambdaFunction"
         },
-        "CodeSha256": "3LV4y+jph93lUunC5NgJ7CLWhlqCLxy7rdWvIWVzgbw="
+        "CodeSha256": "sZtLOi0ByfqTeVm57UfHsxyKlLHNiAKXXExwPtUnPbs="
       }
     },
     "ApiGatewayRestApi": {
@@ -313,7 +313,7 @@
         "HandlerLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1639672310743": {
+    "ApiGatewayDeployment1639688239156": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -440,7 +440,7 @@
   },
   "Outputs": {
     "ServerlessDeploymentBucketName": {
-      "Value": "nci-attendance-app",
+      "Value": "nci-attendance-webapp",
       "Export": {
         "Name": "sls-amplifylambda-dev-ServerlessDeploymentBucketName"
       }
@@ -456,14 +456,14 @@
     },
     "CvPythonAppDependenciesLambdaLayerHash": {
       "Description": "Current Lambda layer hash",
-      "Value": "ea20b70f07aa9b02a42714401acec3ec5bf7f56f",
+      "Value": "7976e401e88dbe87ca7ae894dea0b19ec678dd39",
       "Export": {
         "Name": "sls-amplifylambda-dev-CvPythonAppDependenciesLambdaLayerHash"
       }
     },
     "CvPythonAppDependenciesLambdaLayerS3Key": {
       "Description": "Current Lambda layer S3Key",
-      "Value": "serverless/amplifylambda/dev/1639672313860-2021-12-16T16:31:53.860Z/CvPythonAppDependencies.zip",
+      "Value": "serverless/amplifylambda/dev/1639688241989-2021-12-16T20:57:21.989Z/CvPythonAppDependencies.zip",
       "Export": {
         "Name": "sls-amplifylambda-dev-CvPythonAppDependenciesLambdaLayerS3Key"
       }
@@ -479,14 +479,14 @@
     },
     "CvPymysqlAppDependenciesLambdaLayerHash": {
       "Description": "Current Lambda layer hash",
-      "Value": "b43441e621b58dce3670e98fd440de25e27e1a63",
+      "Value": "e469b09ff9ac1449caa06d38ca3ec641ee55e8c4",
       "Export": {
         "Name": "sls-amplifylambda-dev-CvPymysqlAppDependenciesLambdaLayerHash"
       }
     },
     "CvPymysqlAppDependenciesLambdaLayerS3Key": {
       "Description": "Current Lambda layer S3Key",
-      "Value": "serverless/amplifylambda/dev/1639617624791-2021-12-16T01:20:24.791Z/CvPymysqlAppDependencies.zip",
+      "Value": "serverless/amplifylambda/dev/1639688241989-2021-12-16T20:57:21.989Z/CvPymysqlAppDependencies.zip",
       "Export": {
         "Name": "sls-amplifylambda-dev-CvPymysqlAppDependenciesLambdaLayerS3Key"
       }
@@ -494,7 +494,7 @@
     "HandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HandlerLambdaVersionVVXp8BSakg6JRBUWHJ8m5KCJlOsa82RkAlsYRA64Kpc"
+        "Ref": "HandlerLambdaVersion5onGk3gePxXDPNlE3kD271deAD9hCDRZP7hi8g5CM"
       },
       "Export": {
         "Name": "sls-amplifylambda-dev-HandlerLambdaFunctionQualifiedArn"

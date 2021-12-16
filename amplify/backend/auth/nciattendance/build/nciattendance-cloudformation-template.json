@@ -205,7 +205,7 @@
         "UserPoolId": {
           "Ref": "UserPool"
         },
-        "ClientName": "nciatt79ef57fa_app_clientWeb",
+        "ClientName": "nciattfeecd18d_app_clientWeb",
         "RefreshTokenValidity": {
           "Ref": "userpoolClientRefreshTokenValidity"
         }
@@ -220,7 +220,7 @@
         "UserPoolId": {
           "Ref": "UserPool"
         },
-        "ClientName": "nciatt79ef57fa_app_client",
+        "ClientName": "nciattfeecd18d_app_client",
         "GenerateSecret": {
           "Ref": "userpoolClientGenerateSecret"
         },
@@ -257,7 +257,7 @@
               "Fn::Join": [
                 "",
                 [
-                  "upClientLambdaRole79ef57fa",
+                  "upClientLambdaRolefeecd18d",
                   {
                     "Fn::Select": [
                       3,
@@ -325,7 +325,7 @@
             }
           ]
         },
-        "PolicyName": "nciatt79ef57fa_userpoolclient_lambda_iam_policy",
+        "PolicyName": "nciattfeecd18d_userpoolclient_lambda_iam_policy",
         "Roles": [
           {
             "Ref": "UserPoolClientRole"
@@ -368,7 +368,7 @@
             }
           ]
         },
-        "PolicyName": "nciatt79ef57fa_userpoolclient_lambda_log_policy",
+        "PolicyName": "nciattfeecd18d_userpoolclient_lambda_log_policy",
         "Roles": [
           {
             "Ref": "UserPoolClientRole"

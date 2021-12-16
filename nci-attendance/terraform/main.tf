@@ -8,7 +8,7 @@ resource "random_password" "rds_password" {
 }
 
 resource "aws_s3_bucket" "s3_bucket" {
-  bucket = "nci-attendance-app"
+  bucket = "nci-attendance-webapp"
   acl    = "private"
   force_destroy = true
   lifecycle {

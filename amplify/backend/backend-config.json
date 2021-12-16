@@ -28,20 +28,20 @@
     }
   },
   "function": {
-    "amplifylambdanci": {
+    "amplifyncilambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "api": {
-    "amplifyapinci": {
+    "amplifynciapi": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "amplifylambdanci",
+          "resourceName": "amplifyncilambda",
           "attributes": [
             "Name",
             "Arn"

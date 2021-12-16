@@ -1,6 +1,6 @@
 {
-  "resourceNameTruncated": "nciatt79ef57fa",
-  "userPoolName": "nciattendance_userpool_79ef57fa",
+  "resourceNameTruncated": "nciattfeecd18d",
+  "userPoolName": "nciattendance_userpool_feecd18d",
   "autoVerifiedAttributes": [
     "email"
   ],
@@ -23,9 +23,9 @@
   "userpoolClientRefreshTokenValidity": 30,
   "userpoolClientWriteAttributes": [],
   "userpoolClientReadAttributes": [],
-  "userpoolClientLambdaRole": "nciatt79ef57fa_userpoolclient_lambda_role",
+  "userpoolClientLambdaRole": "nciattfeecd18d_userpoolclient_lambda_role",
   "userpoolClientSetAttributes": false,
-  "sharedId": "79ef57fa",
+  "sharedId": "feecd18d",
   "resourceName": "nciattendance",
   "authSelections": "userPoolOnly",
   "serviceName": "Cognito",

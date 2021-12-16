@@ -49,13 +49,13 @@
             "FunctionName": {
                 "Fn::If": [
                     "ShouldNotCreateEnvResources",
-                    "amplifylambdanci",
+                    "amplifyncilambda",
                     {
 
                         "Fn::Join": [
                             "",
                             [
-                                "amplifylambdanci",
+                                "amplifyncilambda",
                                 "-",
                                 {
                                     "Ref": "env"
@@ -80,13 +80,13 @@
                 "RoleName": {
                     "Fn::If": [
                         "ShouldNotCreateEnvResources",
-                        "nciattendanceappnewLambdaRole704ff9e8",
+                        "nciattendancewebappLambdaRolecaead0ee",
                         {
 
                             "Fn::Join": [
                                 "",
                                 [
-                                    "nciattendanceappnewLambdaRole704ff9e8",
+                                    "nciattendancewebappLambdaRolecaead0ee",
                                     "-",
                                     {
                                         "Ref": "env"

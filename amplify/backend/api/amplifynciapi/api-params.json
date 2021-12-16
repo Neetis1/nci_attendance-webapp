@@ -2,30 +2,30 @@
   "paths": [
     {
       "name": "/attendance",
-      "lambdaFunction": "amplifylambdanci",
+      "lambdaFunction": "amplifyncilambda",
       "privacy": {
         "open": true
       },
       "policyResourceName": "/attendance"
     }
   ],
-  "resourceName": "amplifyapinci",
-  "apiName": "amplifyapinci",
+  "resourceName": "amplifynciapi",
+  "apiName": "amplifynciapi",
   "functionArns": [
     {
-      "lambdaFunction": "amplifylambdanci"
+      "lambdaFunction": "amplifyncilambda"
     }
   ],
   "privacy": {
     "auth": 0,
     "unauth": 0,
-    "authRoleName": "amplify-nciattendanceappnew-prod-02856-authRole",
-    "unAuthRoleName": "amplify-nciattendanceappnew-prod-02856-unauthRole"
+    "authRoleName": "amplify-nciattendancewebapp-dev-210045-authRole",
+    "unAuthRoleName": "amplify-nciattendancewebapp-dev-210045-unauthRole"
   },
   "dependsOn": [
     {
       "category": "function",
-      "resourceName": "amplifylambdanci",
+      "resourceName": "amplifyncilambda",
       "attributes": [
         "Name",
         "Arn"

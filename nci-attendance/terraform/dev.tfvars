@@ -1,5 +1,0 @@
-bucket_name = "nci-attendance-app"
-account_id  = "584725943952"
-mysql_username = "admin"
-mysql_password = "admin123"
-database_name = "nci_attendance"

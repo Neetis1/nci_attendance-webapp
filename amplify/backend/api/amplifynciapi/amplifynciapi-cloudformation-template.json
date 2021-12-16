@@ -8,15 +8,15 @@
         },
     
     
-          "functionamplifylambdanciName": {
+          "functionamplifyncilambdaName": {
             "Type": "String",
-            "Default": "functionamplifylambdanciName"
+            "Default": "functionamplifyncilambdaName"
           },
 
           
-          "functionamplifylambdanciArn": {
+          "functionamplifyncilambdaArn": {
             "Type": "String",
-            "Default": "functionamplifylambdanciArn"
+            "Default": "functionamplifyncilambdaArn"
           }
 
           
@@ -37,16 +37,16 @@
         
         
         
-      "amplifyapinci": {
+      "amplifynciapi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "amplifyapinci",
+          "Name": "amplifynciapi",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "amplifyapinci"
+              "title": "amplifynciapi"
             },
             "host": {
                 "Fn::Join": [
@@ -168,7 +168,7 @@
                             
                             {
 
-                                "Ref": "functionamplifylambdanciArn"
+                                "Ref": "functionamplifyncilambdaArn"
                             },
                             
                             "/invocations"
@@ -267,7 +267,7 @@
                           
                           {
 
-                            "Ref": "functionamplifylambdanciArn"
+                            "Ref": "functionamplifyncilambdaArn"
                           },
                           
                           "/invocations"
@@ -324,12 +324,12 @@
       
         
 
-        "functionamplifylambdanciPermissionamplifyapinci": {
+        "functionamplifyncilambdaPermissionamplifynciapi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionamplifylambdanciName"
+                        "Ref":  "functionamplifyncilambdaName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -348,7 +348,7 @@
                             },
                             ":",
                             {
-                                "Ref": "amplifyapinci"
+                                "Ref": "amplifynciapi"
                             },
                             "/*/*/*"
                         ]
@@ -359,7 +359,7 @@
         
         
 
-      "DeploymentAPIGWamplifyapinci": {
+      "DeploymentAPIGWamplifynciapi": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -373,7 +373,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "amplifyapinci"
+            "Ref": "amplifynciapi"
           }
         }
       }
@@ -381,15 +381,15 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "amplifyapinci"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "amplifynciapi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "amplifyapinci"
+          "Value": "amplifynciapi"
         },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "amplifyapinci"}
+          "Value": {"Ref": "amplifynciapi"}
         }
     }
   }
