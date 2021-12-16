@@ -39,7 +39,7 @@ export default class Analytics extends Component {
           }
         })
         .then((response) => {
-          console.log(response.data)
+          console.log(response)
           this.setState({ error: response.data.error ? response.data.error : undefined});
           this.setState({ datamodelResponse: response.data.data ? response.data.data : response.data });
 
