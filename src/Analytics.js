@@ -32,7 +32,7 @@ export default class Analytics extends Component {
 
       API
         // .get(apiJson.apiUrl+this.props.email,{
-        .get('amplifyapinci','/'+this.props.email, {
+        .get('amplifynciapi','/'+this.props.email, {
           mode: 'cors',
           headers: {
             "Content-Type": "multipart/form-data"
