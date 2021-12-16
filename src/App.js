@@ -52,7 +52,7 @@ const AuthApp = () => {
         <div className="App-first"><h3>Hello, {getUserName(userData)} </h3></div>
         {
           currentView === "Analytics" ? 
-          <Analytics onClick={page => setCurrentView(page)} /> : 
+          <Analytics email={userData.attributes.email} onClick={page => setCurrentView(page)} /> : 
           <Upload email={userData.attributes.email} onClick={page => setCurrentView(page)} />
         }
     </div>

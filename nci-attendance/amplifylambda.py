@@ -68,7 +68,7 @@ def uploadAttendance(event):
 
     decodedData = decodeEvent(event)
 
-    fileDecodedData = decodedData["attendanceFile"].decode('utf16')
+    fileDecodedData = decodedData["attendanceFile"].decode('utf8')
     meetingTitle = ''
     meetingId = ''
     meetingPeopleList = []
@@ -82,7 +82,7 @@ def uploadAttendance(event):
 
         s3Client = boto3.client("s3")
         s3Client.put_object(
-            Bucket=S3_BUCKET_NAME, Key=decodedData["emailUserName"].decode('utf-8')+'/'+meetingId, Body=decodedData["attendanceFile"]
+            Bucket=S3_BUCKET_NAME, Key=decodedData["emailUserName"].decode('utf-8')+'/'+masterData[1], Body=decodedData["attendanceFile"]
             )
 
         if len(attendanceList) > 1:
@@ -311,7 +311,10 @@ def decodeEvent(event):
     Args:
         event (dict) : Lambda dictionary of event parameters.
     """
-    reponseBody = base64.b64decode(event["body"])
+
+    encoded = base64.b64encode(bytes(event["body"], 'utf-8'))
+    # logger.info(encoded)
+    reponseBody = base64.b64decode(encoded)
     decodedFormData = {}
     
     try:

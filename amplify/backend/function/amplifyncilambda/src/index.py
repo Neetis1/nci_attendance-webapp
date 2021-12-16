@@ -82,7 +82,7 @@ def uploadAttendance(event):
 
         s3Client = boto3.client("s3")
         s3Client.put_object(
-            Bucket=S3_BUCKET_NAME, Key=decodedData["emailUserName"].decode('utf-8')+'/'+meetingId, Body=decodedData["attendanceFile"]
+            Bucket=S3_BUCKET_NAME, Key=decodedData["emailUserName"].decode('utf-8')+'/'+masterData[1], Body=decodedData["attendanceFile"]
             )
 
         if len(attendanceList) > 1:
