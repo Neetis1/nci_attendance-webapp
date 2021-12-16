@@ -1,0 +1,66 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nciattendanceappnew-prod-02856-authRole",
+      "UnauthRoleArn": "arn:aws:iam::584725943952:role/amplify-nciattendanceappnew-prod-02856-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::584725943952:role/amplify-nciattendanceappnew-prod-02856-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-nciattendanceappnew-prod-02856-deployment",
+      "UnauthRoleName": "amplify-nciattendanceappnew-prod-02856-unauthRole",
+      "StackName": "amplify-nciattendanceappnew-prod-02856",
+      "StackId": "arn:aws:cloudformation:us-east-1:584725943952:stack/amplify-nciattendanceappnew-prod-02856/29630520-5e07-11ec-9c9f-0a0666c2d4fb",
+      "AmplifyAppId": "d1q790fs2iheqt"
+    }
+  },
+  "auth": {
+    "nciattendance": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      }
+    }
+  },
+  "function": {
+    "amplifylambdanci": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "api": {
+    "amplifyapinci": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "amplifylambdanci",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    }
+  }
+}

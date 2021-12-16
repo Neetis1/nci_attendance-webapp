@@ -1,0 +1,112 @@
+# Serverless framwork to deploy NCI-Attendance backend application
+
+service: amplifylambda
+
+#SERVERLESS PLUGINS
+plugins:
+  - serverless-plugin-aws-alerts
+  - serverless-aws-documentation
+
+custom:
+  # Standard Serverless Framework Plugin to raise Lambda Errors and Throttle (Anamoly Detection) alert using SNS.
+  # https://www.npmjs.com/package/serverless-plugin-aws-alerts
+  # https://github.com/ACloudGuru/serverless-plugin-aws-alerts
+  alerts:
+    stages:
+      - dev
+    topics:
+      alarm:
+        topic: ${self:service}-dev-lambda-errors
+        notifications:
+          - protocol: email
+            endpoint: sharma1992nee@gmail.com
+    alarms:
+      - functionErrors
+      - functionThrottles
+  
+  # Scripts are Standard Serverless Framework Plugin used to start the post deployment tasks
+  # https://www.npmjs.com/package/serverless-plugin-scripts
+  # https://github.com/mvila/serverless-plugin-scripts
+
+  environment:
+    S3Bucket:
+      dev: "nci-attendance-app"
+    AccountId:
+      dev: "584725943952"
+    RdsCredentials:
+      dev: "mysql_rds_credentials"
+  
+provider:
+  name: aws
+  runtime: python3.8
+  deploymentBucket: ${self:custom.environment.S3Bucket.${opt:stage, 'dev'}}
+  stage: ${opt:stage, 'dev'}
+
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
+  
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:PutObject"
+      Resource: "arn:aws:s3:::${self:custom.environment.S3Bucket.${opt:stage, 'dev'}}/*"
+
+package:
+  exclude:
+    - terraform/**
+    - node_modules/**
+
+layers:
+  CvPythonAppDependencies:
+    path: layers/msteams
+    compatibleRuntimes:
+      - python3.8
+    description: "NCI Attendance App"
+  CvPymysqlAppDependencies:
+    path: layers/pymysql
+    compatibleRuntimes:
+      - python3.8
+    description: "NCI Attendance App"
+
+functions:
+  handler:
+    handler: amplifylambda.handler
+    role: arn:aws:iam::${self:custom.environment.AccountId.${opt:stage, 'dev'}}:role/nci_attendance_lambda
+    environment:
+      S3_BUCKET_NAME: ${self:custom.environment.S3Bucket.${opt:stage, 'dev'}}
+      ACCOUNT_ID: ${self:custom.environment.AccountId.${opt:stage, 'dev'}}
+      RDS_SECRETID: ${self:custom.environment.RdsCredentials.${opt:stage, 'dev'}}
+    layers:
+      - {Ref: CvPythonAppDependenciesLambdaLayer}
+      - {Ref: CvPymysqlAppDependenciesLambdaLayer}
+#api gateway methods
+    events:
+      - http:
+          path: /attendance
+          method: POST
+          cors: true          # CORS Enabled
+          documentation:
+            summary: "Lambda - API Gateway Integration"
+            description: "Posts Student Attendance File"
+
+      - http:
+          path: /attendance/{emailId}
+          method: GET
+          cors: true         # CORS Enabled
+          documentation:
+            summary: "Lambda - API Gateway Integration"
+            description: "Gets Class attendance information"
+
+
+    tags:
+      - "NCI-Attendance App"
+      - "AppId = 1"
+
+    alarms:
+      - functionErrors
+      - functionThrottles
+
+# serverless deploy | tee deploy.out
+# pip3 install pymysql
+# ./getApi.sh > ../nci_attendance/src/apiUrl.json 

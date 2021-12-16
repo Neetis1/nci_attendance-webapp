@@ -1,0 +1,243 @@
+.App {
+  text-align: center;
+  overflow: hidden;
+  background-color: #b1b1b1;
+  padding: 20px 10px;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  margin-top: 1px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background-color: #f90;
+  border-radius: 20px;
+  float:left;
+  font-size: 35px;
+  font-weight: 800;
+  height: 7vmin;
+  line-height: 160%;
+  color: rgb(70, 70, 70);
+}
+
+
+.App-header-login {
+  margin-top: 1px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background-color: #f90;
+  border-radius: 15px;
+  float:center;
+  font-size: 35px;
+  font-weight: 800;
+  color: rgb(70, 70, 70);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App-a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 15px; 
+  margin-top: 14px;
+  margin-right: 5px;
+  border-radius: 4px;
+  background-color: rgb(70, 70, 70);
+}
+
+.App-a:hover {
+  background-color: #f90;
+  color: white;
+}
+
+.active {
+  background-color: #f90;
+  color: white;
+}
+.App-right {
+  float: right;
+}
+
+.App-chart-right {
+  float: right;
+  margin-right: 300px;
+  margin-top: -270px;
+}
+
+.App-chart-left {
+  float: left;
+  margin-left: 205px;
+  margin-top: 40px;
+}
+
+.App-center {
+  height: 100px;
+  width: 400px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -200px;
+}
+
+.App-first {
+  width: 170px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    float: left;
+    color: rgb(34, 34, 34);
+    text-align: center;
+    padding: 10px;
+    font-size: 18px; 
+    margin-top: -9px;
+    margin-right: 5px;
+    border-radius: 4px;
+}
+
+.App-logout {
+  /* border-color: #f90; */
+  color: rgb(255, 255, 255);
+  background-color: rgb(70, 70, 70);
+  background-image: linear-gradient(45deg, #f90 50%, transparent 10%);
+  background-position: 100%;
+  background-size: 300%;
+  transition:  300ms ease-in-out;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  text-align: center;
+  margin-left: 200px;
+  margin-right: 50px;
+  margin-top: 8px;
+  padding: 6px 13px;
+  box-sizing: border-box;
+  float:right;
+  padding: 10px;
+  font-size: 14px; 
+  margin-right: 5px;
+  border-radius: 4px;
+}
+
+.App-upload {
+  /* border-color: #f90; */
+  color: rgb(255, 255, 255);
+  background-color: rgb(70, 70, 70);
+  background-image: linear-gradient(45deg, #f90 50%, transparent 10%);
+  background-position: 100%;
+  background-size: 300%;
+  transition:  300ms ease-in-out;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  text-align: center;
+  margin-right: 120px;
+  margin-top: 4px;
+  padding: 6px 13px;
+  box-sizing: border-box;
+  float:right;
+  padding: 10px;
+  font-size: 14px; 
+  border-radius: 4px;
+}
+
+.App-upload:hover {
+  background-position: 0;
+}
+
+.App-submit {
+  /* border-color: #f90; */
+  color: rgb(255, 255, 255);
+  background-color: rgb(70, 70, 70);
+  background-image: linear-gradient(45deg, #f90 50%, transparent 10%);
+  background-position: 100%;
+  background-size: 300%;
+  transition:  300ms ease-in-out;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  box-sizing: border-box;
+  float:right;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: -42px;
+  margin-left: 100px;
+}
+
+.App-submit:hover {
+  background-position: 0;
+}
+
+.App-logout:hover {
+  background-position: 0;
+}
+
+.App-orange{
+  color:#f90
+}
+
+.App-green{
+  color:rgb(0, 129, 22)
+}
+
+/* .App-logout{
+  display: flex;
+  justify-content: flex-end;
+  
+} */
+
+.App-organizer {
+  float: left;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+
+.parent {
+  margin-top: -210px;
+  margin-left: -200px;
+  background: rgb(73, 73, 73) ;
+  padding: 1.5rem;
+  width : 84vmin;
+}
+.child {
+  border: 5px solid #f90 ;
+  height: 12vmin;
+  width : 17vmin;
+  background-color: #f90;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+.float-left-child {
+  float: left;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

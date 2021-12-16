@@ -1,0 +1,60 @@
+Serverless: Running "serverless" installed locally (in service node_modules)
+ 
+ Serverless Warning --------------------------------------
+ 
+  CLI options definitions were upgraded with "type" property (which could be one of "string", "boolean", "multiple"). Below listed plugins do not predefine type for introduced options:
+   - ServerlessAWSDocumentation for "outputFileName"
+  
+  Please report this issue in plugin issue tracker.
+ 
+ 
+ Serverless Warning --------------------------------------
+ 
+  CLI options definitions were upgraded with "type" property (which could be one of "string", "boolean", "multiple"). Below listed plugins do not predefine type for introduced options:
+   - ServerlessAWSDocumentation for "outputFileName"
+  
+  Please report this issue in plugin issue tracker.
+ 
+Serverless: Configuration warning:
+Serverless:   at 'functions.process_nci_attendnace.events[0].http': unrecognized property 'documentation'
+Serverless:   at 'functions.process_nci_attendnace.events[1].http': unrecognized property 'documentation'
+Serverless:   at 'functions.process_nci_attendnace.tags': should be object
+Serverless:  
+Serverless: Learn more about configuration validation here: http://slss.io/configuration-validation
+Serverless:  
+Serverless: Deprecation warning: Resolution of lambda version hashes was improved with better algorithm, which will be used in next major release.
+            Switch to it now by setting "provider.lambdaHashingVersion" to "20201221".
+            While it is highly encouraged to upgrade to new algorithm, you can still use the old approach by setting "provider.lambdaHashingVersion" to "20200924".
+            More Info: https://www.serverless.com/framework/docs/deprecations/#LAMBDA_HASHING_VERSION_V2
+Serverless: Packaging service...
+Serverless: Excluding development dependencies...
+Serverless: Excluding development dependencies...
+Serverless: Excluding development dependencies...
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading artifacts...
+Serverless: Uploading service cv-nci-cpp-app.zip file to S3 (156.35 kB)...
+Serverless: Uploading service CvPythonAppDependencies.zip file to S3 (4.72 kB)...
+Serverless: Uploading service CvPymysqlAppDependencies.zip file to S3 (117.4 kB)...
+Serverless: Validating template...
+Serverless: Creating Stack...
+Serverless: Checking Stack create progress...
+.....................................................
+Serverless: Stack create finished...
+Service Information
+service: cv-nci-cpp-app
+stage: dev
+region: us-east-1
+stack: cv-nci-cpp-app-dev
+resources: 17
+api keys:
+  None
+endpoints:
+  POST - https://0bktzke103.execute-api.us-east-1.amazonaws.com/dev/attendance
+  GET - https://0bktzke103.execute-api.us-east-1.amazonaws.com/dev/attendance/{emailId}
+functions:
+  process_nci_attendnace: cv-nci-cpp-app-dev-process_nci_attendnace
+layers:
+  CvPythonAppDependencies: arn:aws:lambda:us-east-1:584725943952:layer:CvPythonAppDependencies:20
+  CvPymysqlAppDependencies: arn:aws:lambda:us-east-1:584725943952:layer:CvPymysqlAppDependencies:4
+
+Improve API performance – monitor it with the Serverless Dashboard: run "serverless"

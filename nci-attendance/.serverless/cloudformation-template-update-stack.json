@@ -1,0 +1,530 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "The AWS CloudFormation template for this Serverless application",
+  "Resources": {
+    "HandlerLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/amplifylambda-dev-handler"
+      }
+    },
+    "CvPythonAppDependenciesLambdaLayer": {
+      "Type": "AWS::Lambda::LayerVersion",
+      "Properties": {
+        "Content": {
+          "S3Bucket": "nci-attendance-app",
+          "S3Key": "serverless/amplifylambda/dev/1639672313860-2021-12-16T16:31:53.860Z/CvPythonAppDependencies.zip"
+        },
+        "LayerName": "CvPythonAppDependencies",
+        "Description": "NCI Attendance App",
+        "CompatibleRuntimes": [
+          "python3.8"
+        ]
+      }
+    },
+    "CvPymysqlAppDependenciesLambdaLayer": {
+      "Type": "AWS::Lambda::LayerVersion",
+      "Properties": {
+        "Content": {
+          "S3Bucket": "nci-attendance-app",
+          "S3Key": "serverless/amplifylambda/dev/1639617624791-2021-12-16T01:20:24.791Z/CvPymysqlAppDependencies.zip"
+        },
+        "LayerName": "CvPymysqlAppDependencies",
+        "Description": "NCI Attendance App",
+        "CompatibleRuntimes": [
+          "python3.8"
+        ]
+      }
+    },
+    "HandlerLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "nci-attendance-app",
+          "S3Key": "serverless/amplifylambda/dev/1639672313860-2021-12-16T16:31:53.860Z/amplifylambda.zip"
+        },
+        "Handler": "amplifylambda.handler",
+        "Runtime": "python3.8",
+        "FunctionName": "amplifylambda-dev-handler",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Tags": [
+          {
+            "Key": "0",
+            "Value": "NCI-Attendance App"
+          },
+          {
+            "Key": "1",
+            "Value": "AppId = 1"
+          }
+        ],
+        "Environment": {
+          "Variables": {
+            "S3_BUCKET_NAME": "nci-attendance-app",
+            "ACCOUNT_ID": "584725943952",
+            "RDS_SECRETID": "mysql_rds_credentials"
+          }
+        },
+        "Role": "arn:aws:iam::584725943952:role/nci_attendance_lambda",
+        "Layers": [
+          {
+            "Ref": "CvPythonAppDependenciesLambdaLayer"
+          },
+          {
+            "Ref": "CvPymysqlAppDependenciesLambdaLayer"
+          }
+        ]
+      },
+      "DependsOn": [
+        "HandlerLogGroup"
+      ]
+    },
+    "HandlerLambdaVersionVVXp8BSakg6JRBUWHJ8m5KCJlOsa82RkAlsYRA64Kpc": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "HandlerLambdaFunction"
+        },
+        "CodeSha256": "3LV4y+jph93lUunC5NgJ7CLWhlqCLxy7rdWvIWVzgbw="
+      }
+    },
+    "ApiGatewayRestApi": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "dev-amplifylambda",
+        "BinaryMediaTypes": [
+          "*/*"
+        ],
+        "EndpointConfiguration": {
+          "Types": [
+            "EDGE"
+          ]
+        },
+        "Policy": ""
+      }
+    },
+    "ApiGatewayResourceAttendance": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "attendance",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceAttendanceEmailidVar": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiGatewayResourceAttendance"
+        },
+        "PathPart": "{emailId}",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodAttendanceOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceAttendance"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodAttendanceEmailidVarOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceAttendanceEmailidVar"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodAttendancePost": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceAttendance"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "HandlerLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": [
+        "HandlerLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayMethodAttendanceEmailidVarGet": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceAttendanceEmailidVar"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "HandlerLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": [
+        "HandlerLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayDeployment1639672310743": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "StageName": "dev"
+      },
+      "DependsOn": [
+        "ApiGatewayMethodAttendanceOptions",
+        "ApiGatewayMethodAttendanceEmailidVarOptions",
+        "ApiGatewayMethodAttendancePost",
+        "ApiGatewayMethodAttendanceEmailidVarGet"
+      ]
+    },
+    "HandlerLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "HandlerLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "AwsAlertsAlarm": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "TopicName": "amplifylambda-dev-lambda-errors",
+        "Subscription": [
+          {
+            "Protocol": "email",
+            "Endpoint": "sharma1992nee@gmail.com"
+          }
+        ]
+      }
+    },
+    "HandlerFunctionErrorsAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ActionsEnabled": true,
+        "Namespace": "AWS/Lambda",
+        "MetricName": "Errors",
+        "Threshold": 1,
+        "Period": 60,
+        "EvaluationPeriods": 1,
+        "DatapointsToAlarm": 1,
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "OKActions": [],
+        "AlarmActions": [
+          {
+            "Ref": "AwsAlertsAlarm"
+          }
+        ],
+        "InsufficientDataActions": [],
+        "Dimensions": [
+          {
+            "Name": "FunctionName",
+            "Value": {
+              "Ref": "HandlerLambdaFunction"
+            }
+          }
+        ],
+        "TreatMissingData": "missing",
+        "Statistic": "Sum"
+      }
+    },
+    "HandlerFunctionThrottlesAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ActionsEnabled": true,
+        "Namespace": "AWS/Lambda",
+        "MetricName": "Throttles",
+        "Threshold": 1,
+        "Period": 60,
+        "EvaluationPeriods": 1,
+        "DatapointsToAlarm": 1,
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "OKActions": [],
+        "AlarmActions": [
+          {
+            "Ref": "AwsAlertsAlarm"
+          }
+        ],
+        "InsufficientDataActions": [],
+        "Dimensions": [
+          {
+            "Name": "FunctionName",
+            "Value": {
+              "Ref": "HandlerLambdaFunction"
+            }
+          }
+        ],
+        "TreatMissingData": "missing",
+        "Statistic": "Sum"
+      }
+    }
+  },
+  "Outputs": {
+    "ServerlessDeploymentBucketName": {
+      "Value": "nci-attendance-app",
+      "Export": {
+        "Name": "sls-amplifylambda-dev-ServerlessDeploymentBucketName"
+      }
+    },
+    "CvPythonAppDependenciesLambdaLayerQualifiedArn": {
+      "Description": "Current Lambda layer version",
+      "Value": {
+        "Ref": "CvPythonAppDependenciesLambdaLayer"
+      },
+      "Export": {
+        "Name": "sls-amplifylambda-dev-CvPythonAppDependenciesLambdaLayerQualifiedArn"
+      }
+    },
+    "CvPythonAppDependenciesLambdaLayerHash": {
+      "Description": "Current Lambda layer hash",
+      "Value": "ea20b70f07aa9b02a42714401acec3ec5bf7f56f",
+      "Export": {
+        "Name": "sls-amplifylambda-dev-CvPythonAppDependenciesLambdaLayerHash"
+      }
+    },
+    "CvPythonAppDependenciesLambdaLayerS3Key": {
+      "Description": "Current Lambda layer S3Key",
+      "Value": "serverless/amplifylambda/dev/1639672313860-2021-12-16T16:31:53.860Z/CvPythonAppDependencies.zip",
+      "Export": {
+        "Name": "sls-amplifylambda-dev-CvPythonAppDependenciesLambdaLayerS3Key"
+      }
+    },
+    "CvPymysqlAppDependenciesLambdaLayerQualifiedArn": {
+      "Description": "Current Lambda layer version",
+      "Value": {
+        "Ref": "CvPymysqlAppDependenciesLambdaLayer"
+      },
+      "Export": {
+        "Name": "sls-amplifylambda-dev-CvPymysqlAppDependenciesLambdaLayerQualifiedArn"
+      }
+    },
+    "CvPymysqlAppDependenciesLambdaLayerHash": {
+      "Description": "Current Lambda layer hash",
+      "Value": "b43441e621b58dce3670e98fd440de25e27e1a63",
+      "Export": {
+        "Name": "sls-amplifylambda-dev-CvPymysqlAppDependenciesLambdaLayerHash"
+      }
+    },
+    "CvPymysqlAppDependenciesLambdaLayerS3Key": {
+      "Description": "Current Lambda layer S3Key",
+      "Value": "serverless/amplifylambda/dev/1639617624791-2021-12-16T01:20:24.791Z/CvPymysqlAppDependencies.zip",
+      "Export": {
+        "Name": "sls-amplifylambda-dev-CvPymysqlAppDependenciesLambdaLayerS3Key"
+      }
+    },
+    "HandlerLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "HandlerLambdaVersionVVXp8BSakg6JRBUWHJ8m5KCJlOsa82RkAlsYRA64Kpc"
+      },
+      "Export": {
+        "Name": "sls-amplifylambda-dev-HandlerLambdaFunctionQualifiedArn"
+      }
+    },
+    "ServiceEndpoint": {
+      "Description": "URL of the service endpoint",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "ApiGatewayRestApi"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            },
+            "/dev"
+          ]
+        ]
+      },
+      "Export": {
+        "Name": "sls-amplifylambda-dev-ServiceEndpoint"
+      }
+    }
+  }
+}

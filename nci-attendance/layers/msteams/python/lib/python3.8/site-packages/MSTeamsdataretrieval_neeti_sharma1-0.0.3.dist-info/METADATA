@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: MSTeamsdataretrieval-neeti-sharma1
+Version: 0.0.3
+Summary: A library to handle MSTeams Attendance report
+Home-page: https://github.com/neetrophy/MSTeamsData_lib_NCI
+Author: Neeti
+Author-email: sharma1992nee@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENCE
+
+## Library Decription
+
+Python Library To retrieve data from a MS teams CSV attendance report in the form of List and Dictionary which can be used for processing this data for creating data models and visualization.
+
+## Installation
+Run the following to install the library 
+```
+pip install pip install MSTeamsdataretrieval-neeti-sharma1
+
+```
+## Usage
+
+```
+from MSTeamsdataretrieval import TeamsDataRetrival
+
+ teamsData = TeamsDataRetrival.MSTeamsAttendanceProcessor(test_data)
+ dict = teamsData.getAttendeesDetailsAsDict()
+
+```
+

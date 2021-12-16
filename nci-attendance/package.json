@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "amplify": "^0.0.11",
+    "boto3": "^0.0.1",
+    "serverless-aws-documentation": "^1.1.0",
+    "serverless-plugin-aws-alerts": "^1.7.4"
+  }
+}

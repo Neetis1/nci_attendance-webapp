@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/attendance",
+      "lambdaFunction": "amplifylambdanci",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/attendance"
+    }
+  ],
+  "resourceName": "amplifyapinci",
+  "apiName": "amplifyapinci",
+  "functionArns": [
+    {
+      "lambdaFunction": "amplifylambdanci"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-nciattendanceappnew-prod-02856-authRole",
+    "unAuthRoleName": "amplify-nciattendanceappnew-prod-02856-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "amplifylambdanci",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}
